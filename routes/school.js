@@ -2,13 +2,11 @@ const express = require('express');
 const router = express.Router();
 const db = require('../db');
 
-// Route logging middleware
 router.use((req, res, next) => {
   console.log(`School route accessed: ${req.method} ${req.path}`);
   next();
 });
 
-// Test route for verification
 router.get('/test', (req, res) => {
   res.json({
     success: true,
@@ -16,10 +14,9 @@ router.get('/test', (req, res) => {
   });
 });
 
-// Add new school
 router.post('/addSchool', async (req, res) => {
   try {
-    console.log('Request body:', req.body); // Log incoming data
+    console.log('Request body:', req.body); 
     
     const { name, address, latitude, longitude } = req.body;
     
@@ -88,7 +85,6 @@ router.get('/listSchools', async (req, res) => {
   }
 });
 
-// Helper function
 function calculateDistance(lat1, lon1, lat2, lon2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;

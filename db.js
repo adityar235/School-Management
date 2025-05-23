@@ -2,7 +2,6 @@
 const mysql = require('mysql2');
 require('dotenv').config();
 
-// Create a connection pool instead of single connection
 const pool = mysql.createPool({
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -11,7 +10,6 @@ const pool = mysql.createPool({
   port: process.env.DB_PORT
 });
 
-// Verify connection
 pool.getConnection((err, connection) => {
   if (err) {
     console.error('Database connection failed:', err.stack);
@@ -21,7 +19,6 @@ pool.getConnection((err, connection) => {
   connection.release();
 });
 
-// Create schools table if not exists
 const createTableQuery = `
   CREATE TABLE IF NOT EXISTS schools (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -39,4 +36,4 @@ pool.query(createTableQuery, (err) => {
   }
 });
 
-module.exports = pool.promise(); // Using promise wrapper for async/await
+module.exports = pool.promise(); 
